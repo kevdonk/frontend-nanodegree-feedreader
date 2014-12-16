@@ -11,12 +11,20 @@
 
 
  /*
-Write a new test suite named "The menu".
 Write a test that ensures the menu element is hidden by default. You'll have to analyze the HTML and the CSS to determine how we're performing the hiding/showing of the menu element.
 Write a test that ensures the menu changes visibility when the menu icon is clicked. This test should have two expectations: does the menu display when clicked and does it hide when clicked again.
 When complete - all of your tests should pass.
 */
 $(function() {
+
+    //from http://testdrivenwebsites.com/2010/08/04/custom-jquery-matchers-in-jasmine/
+    beforeEach(function() {
+        this.addMatchers({
+            toHaveClass: function(className) {
+            return this.actual.hasClass(className);
+            }
+        });
+    });
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
@@ -36,21 +44,23 @@ $(function() {
 
         it('have urls', function() {
             expect(allFeeds.forEach(function(feed) {
-                expect(feed.url).toBeDefined();
                 expect(feed.url).toBeTruthy();
             }))
         });
 
         it('have names', function() {
             expect(allFeeds.forEach(function(feed) {
-                expect(feed.name).toBeDefined();
                 expect(feed.name).toBeTruthy();
             }))
         });
     });
+    describe('The menu', function() {
 
+        it('is hidden by default', function() {
+            expect($('body')).toHaveClass('menu-hidden');
+        });
 
-    /* TODO: Write a new test suite named "The menu" */
+    });
 
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
