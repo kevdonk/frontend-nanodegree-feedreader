@@ -48,7 +48,7 @@ $(function() {
   });
   describe('The menu', function() {
     /*
-    	toHaveClass
+    	toHaveClass custom matcher
     	from http://testdrivenwebsites.com/2010/08/04/custom-jquery-matchers-in-jasmine/
       updated by Kevin Mayo for Jasmine 2.0 as per: http://jasmine.github.io/2.0/custom_matcher.html
       and http://jasmine.github.io/2.0/upgrading.html 
@@ -74,7 +74,7 @@ $(function() {
     });
     	describe(', when the menu icon is clicked, ', function(done) {
     		beforeEach(function(done) {
-    			$('.menu-icon-link').trigger('click');
+    			$('.menu-icon-link').trigger('click'); //make sure that click occurs before testing
     			done();
     		});
 		    it('becomes visible', function(done) {
@@ -88,19 +88,19 @@ $(function() {
 
 		  });
   });
+	describe('Initial Entries', function(done) {
+		beforeEach(function(done){
+			loadFeed(0, done);	//loadFeed takes an optional second param, cb to be called upon completion :)
+		});
+		it('has at least one entry', function(done) {
+			expect($('.feed > a > .entry').length).toBeGreaterThan(0);   // '.entry's appear inside 'a' tags
+			done();
+		});
+	});
+  describe('New Feed Selection', function(done) {
 
-    /* TODO: Write a new test suite named "Initial Entries" */
-
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test wil require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
-
-    /* TODO: Write a new test suite named "New Feed Selection"
-
-        /* TODO: Write a test that ensures when a new feed is loaded
+  });
+         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
