@@ -89,7 +89,7 @@ $(function() {
 		  });
   });
 	describe('Initial Entries', function(done) {
-		beforeEach(function(done){
+		beforeEach(function(done) {
 			loadFeed(0, done);	//loadFeed takes an optional second param, cb to be called upon completion :)
 		});
 		it('has at least one entry', function(done) {
@@ -98,10 +98,15 @@ $(function() {
 		});
 	});
   describe('New Feed Selection', function(done) {
+  	var feed;
 
+  	beforeEach(function(done) {
+  		loadFeed(1, done);
+  		feed = $('.feed').html();    //feed is blank
+  	});
+  	it('has changed', function(done) {
+  		expect($('.feed').html()).not.toEqual(feed); //compare feed 1 to blank
+  		loadFeed(0, done);													 //return feed to 0 (regardless of state when tested) 
+  	});
   });
-         /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
 }());
