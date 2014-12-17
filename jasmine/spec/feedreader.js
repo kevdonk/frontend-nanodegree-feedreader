@@ -17,73 +17,77 @@ When complete - all of your tests should pass.
 */
 $(function() {
 
-    /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
+  /* This is our first test suite - a test suite just contains
+  * a related set of tests. This suite is all about the RSS
+  * feeds definitions, the allFeeds variable in our application.
+  */
+  describe('RSS Feeds', function() {
+    /* This is our first test - it tests to make sure that the
+     * allFeeds variable has been defined and that it is not
+     * empty. Experiment with this before you get started on
+     * the rest of this project. What happens when you change
+     * allFeeds in app.js to be an empty array and refresh the
+     * page?
+     */
+    it('are defined', function() {
+      expect(allFeeds).toBeDefined();
+      expect(allFeeds.length).not.toBe(0);
+    });
+
+    it('have urls', function() {
+      expect(allFeeds.forEach(function(feed) {
+        expect(feed.url).toBeTruthy();
+      }));
+    });
+
+    it('have names', function() {
+      expect(allFeeds.forEach(function(feed) {
+        expect(feed.name).toBeTruthy();
+      }));
+    });
+  });
+  describe('The menu', function() {
+    /*
+    	toHaveClass
+    	from http://testdrivenwebsites.com/2010/08/04/custom-jquery-matchers-in-jasmine/
+      updated by Kevin Mayo for Jasmine 2.0 as per: http://jasmine.github.io/2.0/custom_matcher.html
+      and http://jasmine.github.io/2.0/upgrading.html 
     */
-    describe('RSS Feeds', function() {
-        /* This is our first test - it tests to make sure that the
-         * allFeeds variable has been defined and that it is not
-         * empty. Experiment with this before you get started on
-         * the rest of this project. What happens when you change
-         * allFeeds in app.js to be an empty array and refresh the
-         * page?
-         */
-        it('are defined', function() {
-            expect(allFeeds).toBeDefined();
-            expect(allFeeds.length).not.toBe(0);
-        });
-
-        it('have urls', function() {
-            expect(allFeeds.forEach(function(feed) {
-                expect(feed.url).toBeTruthy();
-            }));
-        });
-
-        it('have names', function() {
-            expect(allFeeds.forEach(function(feed) {
-                expect(feed.name).toBeTruthy();
-            }));
-        });
-    });
-    describe('The menu', function() {
-        /*from http://testdrivenwebsites.com/2010/08/04/custom-jquery-matchers-in-jasmine/
-          updated by Kevin Mayo for Jasmine 2.0 as per: http://jasmine.github.io/2.0/custom_matcher.html
-          and http://jasmine.github.io/2.0/upgrading.html 
-        */
-        beforeEach(function() {
-            jasmine.addMatchers({
-                toHaveClass: function(util) {
-                return {
-                    compare: function(actual, className) { 
-                    var passed = actual.hasClass(className);               
-                    return {
-                    pass: passed,
-                    message: 'Expected ' + actual + (passed ? '' : ' not') + ' to equal ' + className
-                    };
-                    }
-                };
-                }
-            });
-        });
-        
-        it('is hidden by default', function() {
-            expect($('body')).toHaveClass('menu-hidden');
-        });
-
+    beforeEach(function() {
+      jasmine.addMatchers({
+        toHaveClass: function(util) {
+          return {
+            compare: function(actual, className) { 
+            var passed = actual.hasClass(className);               
+            return {
+              pass: passed,
+              message: 'Expected ' + actual + (passed ? '' : ' not') + ' to equal ' + className
+            };
+            }
+          };
+          }
+      });
     });
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
+    it('is hidden by default', function() {
+      expect($('body')).toHaveClass('menu-hidden');
+    });
+    	describe(', when the menu icon is clicked, ', function(done) {
+    		beforeEach(function(done) {
+    			$('.menu-icon-link').trigger('click');
+    			done();
+    		});
+		    it('becomes visible', function(done) {
+		    	expect($('body')).not.toHaveClass('menu-hidden');
+		    	done();
+		    });
+		    it('then hidden', function(done) {
+		    	expect($('body')).toHaveClass('menu-hidden');
+		    	done();
+		    });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+		  });
+  });
 
     /* TODO: Write a new test suite named "Initial Entries" */
 
