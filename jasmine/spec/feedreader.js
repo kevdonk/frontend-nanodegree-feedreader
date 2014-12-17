@@ -12,19 +12,11 @@
 
  /*
 Write a test that ensures the menu element is hidden by default. You'll have to analyze the HTML and the CSS to determine how we're performing the hiding/showing of the menu element.
-Write a test that ensures the menu changes visibility when the menu icon is clicked. This test should have two expectations: does the menu display when clicked and does it hide when clicked again.
+Write a testst that ensures the menu changes visibility when the menu icon is clicked. This test should have two expectations: does the menu display when clicked and does it hide when clicked again.
 When complete - all of your tests should pass.
 */
 $(function() {
 
-    //from http://testdrivenwebsites.com/2010/08/04/custom-jquery-matchers-in-jasmine/
-    beforeEach(function() {
-        this.addMatchers({
-            toHaveClass: function(className) {
-            return this.actual.hasClass(className);
-            }
-        });
-    });
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
@@ -45,17 +37,36 @@ $(function() {
         it('have urls', function() {
             expect(allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeTruthy();
-            }))
+            }));
         });
 
         it('have names', function() {
             expect(allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeTruthy();
-            }))
+            }));
         });
     });
     describe('The menu', function() {
-
+        /*from http://testdrivenwebsites.com/2010/08/04/custom-jquery-matchers-in-jasmine/
+          updated by Kevin Mayo for Jasmine 2.0 as per: http://jasmine.github.io/2.0/custom_matcher.html
+          and http://jasmine.github.io/2.0/upgrading.html 
+        */
+        beforeEach(function() {
+            jasmine.addMatchers({
+                toHaveClass: function(util) {
+                return {
+                    compare: function(actual, className) { 
+                    var passed = actual.hasClass(className);               
+                    return {
+                    pass: passed,
+                    message: 'Expected ' + actual + (passed ? '' : ' not') + ' to equal ' + className
+                    };
+                    }
+                };
+                }
+            });
+        });
+        
         it('is hidden by default', function() {
             expect($('body')).toHaveClass('menu-hidden');
         });
