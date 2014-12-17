@@ -1,0 +1,15 @@
+http://jasmine.github.io/2.1/introduction.html
+
+Spy Cheat Sheet
+http://tobyho.com/2011/12/15/jasmine-spy-cheatsheet/
+
+toHaveClass custom matcher
+http://testdrivenwebsites.com/2010/08/04/custom-jquery-matchers-in-jasmine/
+http://jasmine.github.io/2.0/custom_matcher.html
+http://jasmine.github.io/2.0/upgrading.html 
+
+Testing Clicks
+http://stackoverflow.com/questions/10823790/testing-a-click-event-with-jasmine-that-appends-a-style-sheet-to-the-head
+
+Asynchronous calls
+http://jasmine.github.io/2.1/introduction.html#section-Asynchronous_Support
